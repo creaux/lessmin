@@ -8,7 +8,7 @@ if (lessmin === undefined) {
 lessmin.Minimizer = (function(){
 
     var Comments = {
-        singleRE : /(?:\/\*(?:[\s\S]*?)\*\/)|(?:([\s;])+\/\/(?:.*)$)/gm,
+        singleRE : /(?:\/\*(?:[\s\S]*?)\*\/)|(?:([\s])+\/\/(?:.*)$)/gm,
         multiRE : /\*[\w'\s\r\n\.\*\/#\^]*\*\//g,
         rmSingle : function(data) {
             var re = this.singleRE;
