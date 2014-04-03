@@ -1,6 +1,3 @@
-var fs = require('fs')
-  , path = require('path');
-
 var lessmin = {
     Parser : require('./parser').Parser
 };

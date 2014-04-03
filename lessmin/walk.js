@@ -6,7 +6,7 @@ if (lessmin === undefined) {
     lessmin = exports;
 }
 
-lessmin.Walk = (function() {
+lessmin.Walk = function(file) {
 
     var reImport = /@import\s*"[^"]+";/g,
     reImportCommas = /"[^"]+"/g,
@@ -52,7 +52,7 @@ lessmin.Walk = (function() {
      * @param rootfile
      * @param importString
      */
-    function getData(rootfile, importString) {
+    function setData(rootfile, importString) {
         var file = rootfile;
         var dir = path.dirname(file);
         var content = fs.readFileSync(file).toString();
@@ -64,13 +64,18 @@ lessmin.Walk = (function() {
                 var fileName = getFilename(importer);
                 var filePath = path.join(dir, fileName);
                 if (!fs.existsSync(filePath)) return;
-                getData(filePath, importer);
+                setData(filePath, importer);
             });
         }
     }
 
-    return function(file) {
-        getData(file);
+    function getData() {
         return data;
     }
-})();
+
+    this.data = function() {
+        return getData();
+    };
+
+    setData(file);
+};

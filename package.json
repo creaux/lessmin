@@ -1,5 +1,5 @@
 {   "name" : "lessmin"
-    , "version" : "0.0.1-1"
+    , "version" : "0.0.1-2"
     , "description" : "Less code minimizer tool without compilation."
     , "main" : "lessmin/index.js"
 }

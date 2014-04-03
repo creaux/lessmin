@@ -6,27 +6,27 @@ if (lessmin === undefined) {
     lessmin.Minimizer = require('./minimizer').Minimizer;
 }
 
-lessmin.Parser = (function(){
+lessmin.Parser = function(){
 
     var minimize = false,
-        file = null;
+        file = null,
+        walk;
 
-    return function() {
+    this.parse = function() {
+        // Options for parser
 
-        this.parse = function(options) {
-            // Options for parser
-            if (options) {
-                var minimize = options.minimize || null;
-                var input = options.input || null;
-                var callback = options.callback || null;
-            }
+        var minimize = arguments[0].minimize || null;
+        var input = arguments[0].input || null;
 
-            var data;
 
-            if (input) data = lessmin.Walk(input);
-            var minimizer = new lessmin.Minimizer();
-            if (minimize) data = minimizer.minimize(data);
-            callback(data);
-        };
-    }
-})();
+        var data;
+
+        if (input) {
+            walk = new lessmin.Walk(input);
+            data = walk.data();
+        }
+        var minimizer = new lessmin.Minimizer();
+        if (minimize) data = minimizer.minimize(data);
+        return data;
+    };
+};
